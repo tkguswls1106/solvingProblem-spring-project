@@ -27,6 +27,22 @@ public class Problem implements Serializable {
     private String modificationPw;
 
 
+    @Builder
+    public Problem(Long id, Integer type, String content, String modificationPw) {
+        this.id = id;
+        this.type = type;
+        this.content = content;
+        this.modificationPw = modificationPw;
+    }
+
+    @Builder(builderClassName = "ProblemUpdateBuilder", builderMethodName = "ProblemUpdateBuilder")
+    public Problem(String content, String modificationPw) {
+        // 이 빌더는 문제 수정때만 사용할 용도
+        this.content = content;
+        this.modificationPw = modificationPw;
+    }
+
+
     // 수정(업데이트) 기능
     public void updateContent(String content) {  // 문제 내용 변경 기능
         this.content = content;
