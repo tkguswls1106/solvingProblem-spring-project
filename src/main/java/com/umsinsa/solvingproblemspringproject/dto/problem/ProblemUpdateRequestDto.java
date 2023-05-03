@@ -10,19 +10,19 @@ import lombok.NoArgsConstructor;
 public class ProblemUpdateRequestDto {
 
     private String content;
-    private String modificationPw;
+    private String password;
 
     @Builder
-    public ProblemUpdateRequestDto(String content, String modificationPw) {
+    public ProblemUpdateRequestDto(String content, String password) {
         this.content = content;
-        this.modificationPw = modificationPw;
+        this.password = password;
     }
 
     // dto를 DB에 접근할수있는 entity로 변환 용도
     public Problem toEntity() {
         return Problem.ProblemUpdateBuilder()
                 .content(content)
-                .modificationPw(modificationPw)
+                .password(password)
                 .build();
     }
 }

@@ -7,24 +7,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ProblemSaveRequestDto {
+public class ProblemDeleteRequestDto {
 
-    private Integer type;
-    private String content;
     private String password;
 
     @Builder
-    public ProblemSaveRequestDto(Integer type, String content, String password) {
-        this.type = type;
-        this.content = content;
+    public ProblemDeleteRequestDto(String password) {
         this.password = password;
     }
 
     // dto를 DB에 접근할수있는 entity로 변환 용도
     public Problem toEntity() {
-        return Problem.builder()
-                .type(type)
-                .content(content)
+        return Problem.ProblemDeleteBuilder()
                 .password(password)
                 .build();
     }

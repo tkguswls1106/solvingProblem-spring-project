@@ -23,23 +23,29 @@ public class Problem implements Serializable {
     @Column(name = "content", columnDefinition = "MEDIUMTEXT default null")
     private String content;
 
-    @Column(name = "modification_password")  // 수정용 비밀번호 (문제 출제자 식별용도)
-    private String modificationPw;
+    @Column(name = "problem_password")  // 수정 및 삭제용 비밀번호 (문제 출제자 식별용도)
+    private String password;
 
 
     @Builder
-    public Problem(Long id, Integer type, String content, String modificationPw) {
+    public Problem(Long id, Integer type, String content, String password) {
         this.id = id;
         this.type = type;
         this.content = content;
-        this.modificationPw = modificationPw;
+        this.password = password;
     }
 
     @Builder(builderClassName = "ProblemUpdateBuilder", builderMethodName = "ProblemUpdateBuilder")
-    public Problem(String content, String modificationPw) {
+    public Problem(String content, String password) {
         // 이 빌더는 문제 수정때만 사용할 용도
         this.content = content;
-        this.modificationPw = modificationPw;
+        this.password = password;
+    }
+
+    @Builder(builderClassName = "ProblemDeleteBuilder", builderMethodName = "ProblemDeleteBuilder")
+    public Problem(String password) {
+        // 이 빌더는 문제 삭제때만 사용할 용도
+        this.password = password;
     }
 
 
