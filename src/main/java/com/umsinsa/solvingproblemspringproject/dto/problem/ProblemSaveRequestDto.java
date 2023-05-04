@@ -14,19 +14,17 @@ public class ProblemSaveRequestDto {
     private String title;
     private String content;
     private String password;
-    private Category category;
 
     @Builder
-    public ProblemSaveRequestDto(Integer type, String title, String content, String password, Category category) {
+    public ProblemSaveRequestDto(Integer type, String title, String content, String password) {
         this.type = type;
         this.title = title;
         this.content = content;
         this.password = password;
-        this.category = category;
     }
 
     // dto를 DB에 접근할수있는 entity로 변환 용도
-    public Problem toEntity() {
+    public Problem toEntity(Category category) {
         return Problem.builder()
                 .type(type)
                 .title(title)

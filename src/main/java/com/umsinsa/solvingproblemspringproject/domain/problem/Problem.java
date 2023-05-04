@@ -17,7 +17,7 @@ public class Problem implements Serializable {
     @Column(name = "problem_id")
     private Long id;
 
-    @Column(name = "problem_type", unique = true)
+    @Column(name = "problem_type")
     private Integer type;
     // 객관식 문제: 1, 빈칸 문제: 2, 서술형 문제: 3
 
