@@ -42,7 +42,7 @@ public class ProblemServiceLogic implements ProblemService {
             throw new RuntimeException("ERROR - 비밀번호 불일치 에러");
         }
 
-        entity.updateContent(problemUpdateRequestDto.getContent());
+        entity.updateContent(problemUpdateRequestDto.getTitle(), problemUpdateRequestDto.getContent());
     }
 
     @Transactional
