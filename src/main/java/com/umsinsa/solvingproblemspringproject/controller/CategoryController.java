@@ -17,7 +17,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
 
-    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    @GetMapping("/categories")
     public List<CategoryResponseDto> findAllCategories() {  // 모든 카테고리 목록들 조회
         List<CategoryResponseDto> categoryResponseDtos = categoryService.findAllCategories();
         return categoryResponseDtos;
