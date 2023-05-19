@@ -105,8 +105,6 @@ public class ProblemServiceLogic implements ProblemService {
     @Override
     public void updateRecommend(Long problemId, ProblemUpdateRecommendRequestDto problemUpdateRecommendRequestDto) {
 
-        getMyInfoBySecurity();  // 헤더의 토큰 유효검사와 사용자 일치 검사 실행.
-
         Problem entity = problemJpaRepository.findById(problemId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 problemId의 문제 조회 실패"));
 
