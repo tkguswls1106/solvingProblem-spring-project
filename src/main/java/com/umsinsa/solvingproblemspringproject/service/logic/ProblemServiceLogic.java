@@ -110,6 +110,15 @@ public class ProblemServiceLogic implements ProblemService {
         Problem entity = problemJpaRepository.findById(problemId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 problemId의 문제 조회 실패"));
 
+        UserResponseDto securityUserResponseDto = getMyInfoBySecurity();  // 헤더의 User data 가져옴.
+        if (securityUserResponseDto.getId() == entity.getUser().getId()) {
+            // 헤더 token의 userId와 problem의 userId가 일치하는지 확인하여,
+            // 접속한 사용자와 문제를 작성했던 사용자가 일치하는지 확인하고
+            // 만약 동일 사용자라면 본인이 본인 게시문제에 대해서는 추천을 누를수 없도록 예외처리 시킨다.
+            throw new RuntimeException("ERROR - 본인이 작성한 문제에는 추천을 누를 수 없습니다.");
+        }
+
+
         String beforeParsing = entity.getRecommendUsers();
         String[] afterParsing = beforeParsing.split("p");
         List<Long> userIds = new ArrayList<>();
