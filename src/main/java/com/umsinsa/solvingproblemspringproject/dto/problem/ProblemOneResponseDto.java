@@ -1,9 +1,9 @@
 package com.umsinsa.solvingproblemspringproject.dto.problem;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.umsinsa.solvingproblemspringproject.domain.user.User;
 import com.umsinsa.solvingproblemspringproject.domain.category.Category;
 import com.umsinsa.solvingproblemspringproject.domain.problem.Problem;
+import com.umsinsa.solvingproblemspringproject.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class ProblemResponseDto {
+public class ProblemOneResponseDto {
 
     private Long id;
     private Integer type;
@@ -21,6 +21,7 @@ public class ProblemResponseDto {
     private Integer recommendCount;
     private List<Long> recommendUsers;
     private List<Long> solveUsers;
+    private Integer isSolve;
 
     private User user;
     private Category category;
@@ -52,9 +53,20 @@ public class ProblemResponseDto {
         return userIds;
     }
 
+    @JsonIgnore
+    public Integer getIsSolve(Long userId, List<Long> userIds) {
+        boolean isContain = userIds.contains(userId);
+        if (isContain) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
 
     // DB에서 repository를 통해 조회하거나 가져온 entity(도메인)를 dto로 변환 용도
-    public ProblemResponseDto(Problem entity) {
+    public ProblemOneResponseDto(Problem entity) {
         this.id = entity.getId();
         this.type = entity.getType();
         this.title = entity.getTitle();
@@ -62,6 +74,7 @@ public class ProblemResponseDto {
         this.recommendCount = entity.getRecommendCount();
         this.recommendUsers = getRecommendUserList(entity.getRecommendUsers());
         this.solveUsers = getSolveUserList(entity.getSolveUsers());
+        this.isSolve = getIsSolve(entity.getUser().getId(), getSolveUserList(entity.getSolveUsers()));
 
         this.user = User.builder()
                 .id(entity.getUser().getId())

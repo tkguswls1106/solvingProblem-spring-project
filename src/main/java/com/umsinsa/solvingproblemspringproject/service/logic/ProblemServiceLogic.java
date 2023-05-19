@@ -75,13 +75,13 @@ public class ProblemServiceLogic implements ProblemService {
 
     @Transactional(readOnly = true)
     @Override
-    public ProblemResponseDto findById(Long problemId) {  // problemId로 검색한 문제 1개 반환 기능.
+    public ProblemOneResponseDto findById(Long problemId) {  // problemId로 검색한 문제 1개 반환 기능. (이 안에 정답자 유무 정보도 포함되어있음.)
 
         getMyInfoBySecurity();  // 헤더의 토큰 유효검사와 사용자 일치 검사 실행.
 
         Problem entity = problemJpaRepository.findById(problemId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 problemId의 문제 조회 실패"));
-        return new ProblemResponseDto(entity);
+        return new ProblemOneResponseDto(entity);
     }
 
     @Transactional
@@ -103,7 +103,7 @@ public class ProblemServiceLogic implements ProblemService {
 
     @Transactional
     @Override
-    public void updateRecommend(Long problemId, ProblemUpdateRecommendRequestDto problemUpdateRecommendRequestDto) {
+    public void updateRecommend(Long problemId, ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 해당 problemId의 문제 추천 기능.
 
         Problem entity = problemJpaRepository.findById(problemId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 problemId의 문제 조회 실패"));
@@ -123,14 +123,47 @@ public class ProblemServiceLogic implements ProblemService {
         for (String userId : afterParsing) {
             userIds.add(Long.parseLong(userId));
         }
-        boolean isContain = userIds.contains(problemUpdateRecommendRequestDto.getUserId());
+        boolean isContain = userIds.contains(problemUpdateUserIdRequestDto.getUserId());
 
         if(!isContain) {  // 추천을 아직 누른사람이 아니라면
-            String parsingStr = Long.toString(problemUpdateRecommendRequestDto.getUserId()) + "p";
+            String parsingStr = Long.toString(problemUpdateUserIdRequestDto.getUserId()) + "p";
             entity.updateRecommend(entity.getRecommendCount()+1, entity.getRecommendUsers()+parsingStr);
         }
         else {
             throw new RuntimeException("ERROR - 이미 추천을 눌렀던 사용자입니다.");
+        }
+    }
+
+    @Transactional
+    @Override
+    public void updateSolve(Long problemId, ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 해당 problemId의 문제의 사용자 정답처리 기능.
+
+        Problem entity = problemJpaRepository.findById(problemId).orElseThrow(
+                ()->new RuntimeException("ERROR - 해당 problemId의 문제 조회 실패"));
+
+        UserResponseDto securityUserResponseDto = getMyInfoBySecurity();  // 헤더의 User data 가져옴.
+        if (securityUserResponseDto.getId() == entity.getUser().getId()) {
+            // 헤더 token의 userId와 problem의 userId가 일치하는지 확인하여,
+            // 접속한 사용자와 문제를 작성했던 사용자가 일치하는지 확인하고
+            // 만약 동일 사용자라면 본인이 본인 게시문제에 대해서는 문제풀이가능잔여횟수 차감이 없도록하며, 정답 처리는 없도록 함.
+            throw new RuntimeException("ERROR - 이는 본인이 작성한 문제이므로 횟수 차감 및 정답 처리는 없습니다.");
+        }
+
+
+        String beforeParsing = entity.getSolveUsers();
+        String[] afterParsing = beforeParsing.split("p");
+        List<Long> userIds = new ArrayList<>();
+        for (String userId : afterParsing) {
+            userIds.add(Long.parseLong(userId));
+        }
+        boolean isContain = userIds.contains(problemUpdateUserIdRequestDto.getUserId());
+
+        if(!isContain) {  // 정답을 아직 맞춰본 사용자가 아니라면
+            String parsingStr = Long.toString(problemUpdateUserIdRequestDto.getUserId()) + "p";
+            entity.updateSolve(entity.getSolveUsers()+parsingStr);
+        }
+        else {
+            throw new RuntimeException("ERROR - 이미 해당 문제의 정답을 맞췄던 사용자입니다.");
         }
     }
 

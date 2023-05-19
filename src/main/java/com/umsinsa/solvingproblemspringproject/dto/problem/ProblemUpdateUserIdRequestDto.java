@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ProblemUpdateRecommendRequestDto {
+public class ProblemUpdateUserIdRequestDto {
 
     private Long userId;
 
     @Builder
-    public ProblemUpdateRecommendRequestDto(Long userId) {
+    public ProblemUpdateUserIdRequestDto(Long userId) {
         this.userId = userId;
     }
 }

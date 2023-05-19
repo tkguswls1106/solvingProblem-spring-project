@@ -37,6 +37,16 @@ public class ProblemController {
         problemService.updateProblem(problemId, problemUpdateRequestDto);
     }
 
+    @PutMapping("/recommend-problem/{problemId}")
+    public void updateRecommend(@PathVariable Long problemId, @RequestBody ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 문제 추천
+        problemService.updateRecommend(problemId, problemUpdateUserIdRequestDto);
+    }
+
+    @PutMapping("/solve-problem/{problemId}")
+    public void updateSolve(@PathVariable Long problemId, @RequestBody ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 문제 정답자 업데이트
+        problemService.updateSolve(problemId, problemUpdateUserIdRequestDto);
+    }
+
     @DeleteMapping("/problems/{problemId}")
     public void deleteProblem(@PathVariable Long problemId) {  // 문제 삭제
         problemService.deleteProblem(problemId);

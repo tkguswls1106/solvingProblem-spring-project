@@ -37,6 +37,10 @@ public class Problem extends DefaultProblemEntity implements Serializable {
     private String recommendUsers;
     // 파싱법: 1p2p...
 
+    @Column(name = "solve_users", columnDefinition = "TEXT default null")
+    private String solveUsers;
+    // 파싱법: 1p2p...
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -74,5 +78,8 @@ public class Problem extends DefaultProblemEntity implements Serializable {
     public void updateRecommend(Integer recommendCount, String recommendUsers) {  // 문제 추천시 업데이트 기능
         this.recommendCount = recommendCount;
         this.recommendUsers = recommendUsers;
+    }
+    public void updateSolve(String solveUsers) {  // 문제 풀경우 푼사용자목록 업데이트 기능
+        this.solveUsers = solveUsers;
     }
 }
