@@ -38,8 +38,8 @@ public class ProblemController {
     }
 
     @DeleteMapping("/problems/{problemId}")
-    public void deleteProblem(@PathVariable Long problemId, @RequestBody ProblemDeleteRequestDto problemDeleteRequestDto) {  // 문제 삭제
-        problemService.deleteProblem(problemId, problemDeleteRequestDto);
+    public void deleteProblem(@PathVariable Long problemId) {  // 문제 삭제
+        problemService.deleteProblem(problemId);
     }
 
 }

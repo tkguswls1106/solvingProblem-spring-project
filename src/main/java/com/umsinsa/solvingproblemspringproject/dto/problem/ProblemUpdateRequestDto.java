@@ -11,13 +11,11 @@ public class ProblemUpdateRequestDto {
 
     private String title;
     private String content;
-    private String password;
 
     @Builder
-    public ProblemUpdateRequestDto(String title, String content, String password) {
+    public ProblemUpdateRequestDto(String title, String content) {
         this.title = title;
         this.content = content;
-        this.password = password;
     }
 
     // dto를 DB에 접근할수있는 entity로 변환 용도
@@ -25,7 +23,6 @@ public class ProblemUpdateRequestDto {
         return Problem.ProblemUpdateBuilder()
                 .title(title)
                 .content(content)
-                .password(password)
                 .build();
     }
 }
