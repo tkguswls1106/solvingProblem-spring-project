@@ -27,9 +27,9 @@ public class ProblemController {
     }
 
     @GetMapping("/problems/{problemId}")
-    public ProblemResponseDto findProblemById(@PathVariable Long problemId) {  // 문제 1개 정보 조회
-        ProblemResponseDto problemResponseDto = problemService.findById(problemId);
-        return problemResponseDto;
+    public ProblemOneResponseDto findProblemById(@PathVariable Long problemId) {  // 문제 1개 정보 조회
+        ProblemOneResponseDto problemOneResponseDto = problemService.findById(problemId);
+        return problemOneResponseDto;
     }
 
     @PutMapping("/problems/{problemId}")
