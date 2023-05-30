@@ -66,6 +66,9 @@ public class User extends DefaultUserEntity implements Serializable {
 
 
     // 수정(업데이트) 기능
+    public void updateLoginPw(String newLoginPw) {  // 패스워드 변경 기능
+        this.loginPw = newLoginPw;
+    }
     public void updateSolvableCount(Integer solvableCount) {  // 문제풀기가능잔여횟수 수정 기능
         this.solvableCount = solvableCount;
     }
