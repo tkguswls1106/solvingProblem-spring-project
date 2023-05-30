@@ -1,6 +1,7 @@
 package com.umsinsa.solvingproblemspringproject.domain.problem;
 
 import com.umsinsa.solvingproblemspringproject.domain.category.Category;
+import com.umsinsa.solvingproblemspringproject.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -9,4 +10,5 @@ import java.util.List;
 public interface ProblemJpaRepository extends JpaRepository<Problem, Long> {
 
     List<Problem> findAllByCategory(Category category);  // 해당 카테고리의 모든 문제 반환.
+    void deleteAllByUser(User user);
 }
