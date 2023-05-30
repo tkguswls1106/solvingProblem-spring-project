@@ -51,6 +51,13 @@ public class User extends DefaultUserEntity implements Serializable {
         this.authority = authority;
     }
 
+    @Builder(builderClassName = "UserUpdatePwBuilder", builderMethodName = "UserUpdatePwBuilder")
+    public User(String loginId, String newLoginPw) {
+        // 이 빌더는 사용자 1차비밀번호 수정때만 사용할 용도
+        this.loginId = loginId;
+        this.loginPw = newLoginPw;
+    }
+
     @Builder(builderClassName = "UserUpdateSolvableCountBuilder", builderMethodName = "UserUpdateSolvableCountBuilder")
     public User(Integer solvableCount) {
         // 이 빌더는 문제풀기가능잔여횟수 수정때만 사용할 용도
