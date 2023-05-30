@@ -98,7 +98,7 @@ public class ProblemServiceLogic implements ProblemService {
             throw new RuntimeException("ERROR - 해당 문제에 접근할 권한이 없습니다.");
         }
 
-        entity.updateContent(problemUpdateRequestDto.getTitle(), problemUpdateRequestDto.getContent());
+        entity.updateProblem(problemUpdateRequestDto.getTitle(), problemUpdateRequestDto.getContent());
     }
 
     @Transactional

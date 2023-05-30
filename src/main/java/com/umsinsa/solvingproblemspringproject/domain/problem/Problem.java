@@ -71,7 +71,7 @@ public class Problem extends DefaultProblemEntity implements Serializable {
 
 
     // 수정(업데이트) 기능
-    public void updateContent(String title, String content) {  // 문제 내용 변경 기능
+    public void updateProblem(String title, String content) {  // 문제 내용 변경 기능
         this.title = title;
         this.content = content;
     }

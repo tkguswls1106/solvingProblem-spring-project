@@ -56,7 +56,7 @@ public class Comment extends DefaultCommentEntity implements Serializable {
 
 
     // 수정(업데이트) 기능
-    public void updateContent(String content) {  // 댓글 변경 기능
+    public void updateComment(String content) {  // 댓글 변경 기능
         this.content = content;
     }
     public void updateRecommend(Integer recommendCount, String recommendUsers) {  // 댓글 추천시 업데이트 기능
