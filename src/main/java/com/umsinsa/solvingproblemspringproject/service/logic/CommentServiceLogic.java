@@ -36,7 +36,7 @@ public class CommentServiceLogic implements CommentService {
 
     @Transactional
     @Override
-    public CommentSaveResponseDto saveComment(Long problemId, CommentSaveRequestDto commentSaveRequestDto) {
+    public CommentSaveResponseDto saveComment(Long problemId, CommentSaveRequestDto commentSaveRequestDto) {  // 해당 problemId 문제에 신규 댓글 생성 기능.
 
         UserResponseDto securityUserResponseDto = getMyInfoBySecurity();  // 헤더의 User data 가져옴.
 
@@ -57,7 +57,7 @@ public class CommentServiceLogic implements CommentService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<CommentResponseDto> findCommentsByProblemId(Long problemId) {
+    public List<CommentResponseDto> findCommentsByProblemId(Long problemId) {  // 해당 problemId 문제의 모든 댓글들 리스트 정렬해서 반환 기능.
 
         getMyInfoBySecurity();  // 헤더의 토큰 유효검사와 사용자 일치 검사 실행.
 
@@ -73,7 +73,7 @@ public class CommentServiceLogic implements CommentService {
 
     @Transactional
     @Override
-    public void updateComment(Long commentId, CommentUpdateRequestDto commentUpdateRequestDto) {
+    public void updateComment(Long commentId, CommentUpdateRequestDto commentUpdateRequestDto) {  // 해당 commentId의 댓글 수정 기능.
 
         Comment entity = commentJpaRepository.findById(commentId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 commentId의 댓글 조회 실패"));
@@ -90,7 +90,7 @@ public class CommentServiceLogic implements CommentService {
 
     @Transactional
     @Override
-    public void updateRecommend(Long commentId, CommentUpdateUserIdRequestDto commentUpdateUserIdRequestDto) {
+    public void updateRecommend(Long commentId, CommentUpdateUserIdRequestDto commentUpdateUserIdRequestDto) {  // 해당 commentId의 댓글 추천 기능.
 
         Comment entity = commentJpaRepository.findById(commentId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 commentId의 댓글 조회 실패"));
@@ -122,7 +122,7 @@ public class CommentServiceLogic implements CommentService {
 
     @Transactional
     @Override
-    public void deleteComment(Long commentId) {
+    public void deleteComment(Long commentId) {  // 해당 commentId의 댓글 삭제 기능.
 
         Comment entity = commentJpaRepository.findById(commentId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 commentId의 댓글 조회 실패"));

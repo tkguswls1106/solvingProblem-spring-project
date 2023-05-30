@@ -32,7 +32,7 @@ public class UserServiceLogic implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public UserResponseDto findById(Long userId) {
+    public UserResponseDto findById(Long userId) {  // userId로 검색한 사용자 1명 반환 기능.
 
         getMyInfoBySecurity();  // 헤더의 토큰 유효검사와 사용자 일치 검사 실행.
 
@@ -43,7 +43,7 @@ public class UserServiceLogic implements UserService {
 
     @Transactional
     @Override
-    public void updateSolvable(Long userId, UserUpdateSolvableRequestDto userUpdateSolvableRequestDto) {
+    public void updateSolvable(Long userId, UserUpdateSolvableRequestDto userUpdateSolvableRequestDto) {  // 해당 userId 사용자의 문제풀이가능잔여횟수 수정 기능.
 
         getMyInfoBySecurity();  // 헤더의 토큰 유효검사와 사용자 일치 검사 실행.
 
@@ -61,7 +61,7 @@ public class UserServiceLogic implements UserService {
 
     @Transactional
     @Override
-    public void deleteUser(Long userId) {
+    public void deleteUser(Long userId) {  // 해당 userId의 사용자 삭제 기능. 동시에 해당 사용자의 댓글과 문제도 함께 삭제함.
 
         getMyInfoBySecurity();  // 헤더의 토큰 유효검사와 사용자 일치 검사 실행.
 

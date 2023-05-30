@@ -15,29 +15,29 @@ public class CommentController {
 
 
     @PostMapping("/problems/{problemId}/comments")
-    public CommentSaveResponseDto saveComment(@PathVariable Long problemId, @RequestBody CommentSaveRequestDto commentSaveRequestDto) {
+    public CommentSaveResponseDto saveComment(@PathVariable Long problemId, @RequestBody CommentSaveRequestDto commentSaveRequestDto) {  // 신규 댓글 생성
         CommentSaveResponseDto commentSaveResponseDto = commentService.saveComment(problemId, commentSaveRequestDto);
         return commentSaveResponseDto;
     }
 
     @GetMapping("/problems/{problemId}/comments")
-    public List<CommentResponseDto> problemLoadComments(@PathVariable Long problemId) {
+    public List<CommentResponseDto> problemLoadComments(@PathVariable Long problemId) {  // 선택한 문제의 모든 댓글들 조회
         List<CommentResponseDto> commentResponseDtos = commentService.findCommentsByProblemId(problemId);
         return commentResponseDtos;
     }
 
     @PutMapping("/comments/{commentId}")
-    public void updateComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto) {
+    public void updateComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto) {  // 댓글 내용 수정
         commentService.updateComment(commentId, commentUpdateRequestDto);
     }
 
     @PutMapping("/recommend-comment/{commentId}")
-    public void updateRecommend(@PathVariable Long commentId, @RequestBody CommentUpdateUserIdRequestDto commentUpdateUserIdRequestDto) {
+    public void updateRecommend(@PathVariable Long commentId, @RequestBody CommentUpdateUserIdRequestDto commentUpdateUserIdRequestDto) {  // 댓글 추천
         commentService.updateRecommend(commentId, commentUpdateUserIdRequestDto);
     }
 
     @DeleteMapping("/comments/{commentId}")
-    public void deleteComment(@PathVariable Long commentId) {
+    public void deleteComment(@PathVariable Long commentId) {  // 댓글 삭제
         commentService.deleteComment(commentId);
     }
 
