@@ -96,10 +96,11 @@ public class CommentServiceLogic implements CommentService {
                 ()->new RuntimeException("ERROR - 해당 commentId의 댓글 조회 실패"));
 
         UserResponseDto securityUserResponseDto = getMyInfoBySecurity();  // 헤더의 User data 가져옴.
-        if (securityUserResponseDto.getId() != entity.getUser().getId()) {
+        if (securityUserResponseDto.getId() == entity.getUser().getId()) {
             // 헤더 token의 userId와 comment의 userId가 일치하는지 확인하여,
-            // 해당 댓글을 작성했던 사용자가 맞는지 확인하고 이를통해, 댓글을 수정 또는 삭제할 권한이 있는 사용자인지 확인한다.
-            throw new RuntimeException("ERROR - 해당 댓글에 접근할 권한이 없습니다.");
+            // 접속한 사용자와 댓글을 작성했던 사용자가 일치하는지 확인하고
+            // 만약 동일 사용자라면 본인이 본인 작성댓글에 대해서는 추천을 누를수 없도록 예외처리 시킨다.
+            throw new RuntimeException("ERROR - 본인이 작성한 댓글에는 추천을 누를 수 없습니다.");
         }
 
 
