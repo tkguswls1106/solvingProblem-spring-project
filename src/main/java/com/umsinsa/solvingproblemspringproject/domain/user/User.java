@@ -52,16 +52,22 @@ public class User extends DefaultUserEntity implements Serializable {
     }
 
     @Builder(builderClassName = "UserUpdatePwBuilder", builderMethodName = "UserUpdatePwBuilder")
-    public User(String loginId, String newLoginPw) {
+    public User(String newLoginPw) {
         // 이 빌더는 사용자 1차비밀번호 수정때만 사용할 용도
-        this.loginId = loginId;
         this.loginPw = newLoginPw;
     }
 
-    @Builder(builderClassName = "UserUpdateSolvableCountBuilder", builderMethodName = "UserUpdateSolvableCountBuilder")
-    public User(Integer solvableCount) {
-        // 이 빌더는 문제풀기가능잔여횟수 수정때만 사용할 용도
-        this.solvableCount = solvableCount;
+//    @Builder(builderClassName = "UserUpdateSolvableCountBuilder", builderMethodName = "UserUpdateSolvableCountBuilder")
+//    public User(Integer solvableCount) {
+//        // 이 빌더는 문제풀기가능잔여횟수 수정때만 사용할 용도
+//        this.solvableCount = solvableCount;
+//    }
+    public User UserUpdateSolvableCountBuilder(Integer solvableCount) {
+        // 이 유사 빌더는 문제풀기가능잔여횟수 수정때만 사용할 용도
+        User userEntity = new User();
+        userEntity.solvableCount = solvableCount;
+
+        return userEntity;
     }
 
 

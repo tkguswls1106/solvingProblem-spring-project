@@ -26,6 +26,13 @@ public class AuthService {
     private final TokenProvider tokenProvider;
 
 
+    public UserResponseDto getMyInfoBySecurity() {  // 헤더에 있는 token값을 토대로 User의 data를 건내주는 메소드이다.
+        return userJpaRepository.findById(com.umsinsa.solvingproblemspringproject.util.SecurityUtil.getCurrentMemberId())
+                .map(UserResponseDto::new)
+                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+    }
+
+
     @Transactional
     public UserResponseDto signup(UserSignupRequestDto userSignupRequestDto) {  // 신규 사용자 생성하고 user 반환 기능.
         // 클라이언트가 요청한, 클라이언트와 교류한 정보니까 RequestDto 형식을 파라미터로 받음.
@@ -54,13 +61,14 @@ public class AuthService {
     @Transactional
     public void updatePw(UserUpdatePwRequestDto userUpdatePwRequestDto) {  // 사용자의 비밀번호 수정 기능.
 
-        UserLoginRequestDto userLoginRequestDto = new UserLoginRequestDto(userUpdatePwRequestDto.getLoginId(), userUpdatePwRequestDto.getLoginPw());
-        UsernamePasswordAuthenticationToken authenticationToken = userLoginRequestDto.toAuthentication();
-        managerBuilder.getObject().authenticate(authenticationToken);
-        // 여기서 로그인이 가능한지 실제로 검증이 이루어진다.
+        UserResponseDto securityUserResponseDto = getMyInfoBySecurity();  // 헤더의 User data 가져옴.
 
-        User entity = userJpaRepository.findByLoginId(userUpdatePwRequestDto.getLoginId()).orElseThrow(
-                ()->new RuntimeException("ERROR - 해당 로그인아이디의 사용자 조회 실패"));
+        User entity = User.builder()
+                .id(securityUserResponseDto.getId())
+                .loginId(securityUserResponseDto.getLoginId())
+                .username(securityUserResponseDto.getUsername())
+                .solvableCount(securityUserResponseDto.getSolvableCount())
+                .build();
 
         entity.updateLoginPw(passwordEncoder.encode(userUpdatePwRequestDto.getNewLoginPw()));
     }
