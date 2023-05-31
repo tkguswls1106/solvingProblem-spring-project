@@ -19,6 +19,9 @@ public class CommentResponseDto {
 
     @JsonIgnore
     public List<Long> getRecommendUserList(String recommendUsers) {
+        if (recommendUsers == null) {
+            return new ArrayList<Long>();
+        }
         String beforeParsing = recommendUsers;
         String[] afterParsing = beforeParsing.split("p");
 

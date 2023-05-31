@@ -29,6 +29,9 @@ public class ProblemOneResponseDto {
 
     @JsonIgnore
     public List<Long> getRecommendUserList(String recommendUsers) {
+        if (recommendUsers == null) {
+            return new ArrayList<Long>();
+        }
         String beforeParsing = recommendUsers;
         String[] afterParsing = beforeParsing.split("p");
 
@@ -42,6 +45,9 @@ public class ProblemOneResponseDto {
 
     @JsonIgnore
     public List<Long> getSolveUserList(String solveUsers) {
+        if (solveUsers == null) {
+            return new ArrayList<Long>();
+        }
         String beforeParsing = solveUsers;
         String[] afterParsing = beforeParsing.split("p");
 

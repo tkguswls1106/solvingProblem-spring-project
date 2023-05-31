@@ -118,16 +118,21 @@ public class ProblemServiceLogic implements ProblemService {
 
 
         String beforeParsing = entity.getRecommendUsers();
+        if (beforeParsing == null) {
+            beforeParsing = "";
+        }
         String[] afterParsing = beforeParsing.split("p");
         List<Long> userIds = new ArrayList<>();
-        for (String userId : afterParsing) {
-            userIds.add(Long.parseLong(userId));
+        if (!beforeParsing.equals("")) {
+            for (String userId : afterParsing) {
+                userIds.add(Long.parseLong(userId));
+            }
         }
         boolean isContain = userIds.contains(securityUserResponseDto.getId());
 
         if(!isContain) {  // 추천을 아직 누른사람이 아니라면
             String parsingStr = Long.toString(securityUserResponseDto.getId()) + "p";
-            entity.updateRecommend(entity.getRecommendCount()+1, entity.getRecommendUsers()+parsingStr);
+            entity.updateRecommend(entity.getRecommendCount()+1, beforeParsing + parsingStr);
         }
         else {
             throw new RuntimeException("ERROR - 이미 추천을 눌렀던 사용자입니다.");
@@ -151,16 +156,21 @@ public class ProblemServiceLogic implements ProblemService {
 
 
         String beforeParsing = entity.getSolveUsers();
+        if (beforeParsing == null) {
+            beforeParsing = "";
+        }
         String[] afterParsing = beforeParsing.split("p");
         List<Long> userIds = new ArrayList<>();
-        for (String userId : afterParsing) {
-            userIds.add(Long.parseLong(userId));
+        if (!beforeParsing.equals("")) {
+            for (String userId : afterParsing) {
+                userIds.add(Long.parseLong(userId));
+            }
         }
         boolean isContain = userIds.contains(securityUserResponseDto.getId());
 
         if(!isContain) {  // 정답을 아직 맞춰본 사용자가 아니라면
             String parsingStr = Long.toString(securityUserResponseDto.getId()) + "p";
-            entity.updateSolve(entity.getSolveUsers()+parsingStr);
+            entity.updateSolve(beforeParsing + parsingStr);
         }
         else {
             throw new RuntimeException("ERROR - 이미 해당 문제의 정답을 맞췄던 사용자입니다.");

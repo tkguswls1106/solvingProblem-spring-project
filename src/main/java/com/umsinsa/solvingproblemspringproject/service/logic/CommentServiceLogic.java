@@ -105,16 +105,21 @@ public class CommentServiceLogic implements CommentService {
 
 
         String beforeParsing = entity.getRecommendUsers();
+        if (beforeParsing == null) {
+            beforeParsing = "";
+        }
         String[] afterParsing = beforeParsing.split("p");
         List<Long> userIds = new ArrayList<>();
-        for (String userId : afterParsing) {
-            userIds.add(Long.parseLong(userId));
+        if (!beforeParsing.equals("")) {
+            for (String userId : afterParsing) {
+                userIds.add(Long.parseLong(userId));
+            }
         }
         boolean isContain = userIds.contains(securityUserResponseDto.getId());
 
         if(!isContain) {  // 추천을 아직 누른사람이 아니라면
             String parsingStr = Long.toString(securityUserResponseDto.getId()) + "p";
-            entity.updateRecommend(entity.getRecommendCount()+1, entity.getRecommendUsers()+parsingStr);
+            entity.updateRecommend(entity.getRecommendCount()+1, beforeParsing + parsingStr);
         }
         else {
             throw new RuntimeException("ERROR - 이미 추천을 눌렀던 사용자입니다.");

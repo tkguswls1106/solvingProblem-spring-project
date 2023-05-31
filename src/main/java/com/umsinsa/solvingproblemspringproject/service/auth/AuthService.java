@@ -1,5 +1,6 @@
 package com.umsinsa.solvingproblemspringproject.service.auth;
 
+import com.umsinsa.solvingproblemspringproject.domain.problem.Problem;
 import com.umsinsa.solvingproblemspringproject.domain.user.User;
 import com.umsinsa.solvingproblemspringproject.domain.user.UserJpaRepository;
 import com.umsinsa.solvingproblemspringproject.dto.token.TokenDto;
@@ -63,12 +64,8 @@ public class AuthService {
 
         UserResponseDto securityUserResponseDto = getMyInfoBySecurity();  // 헤더의 User data 가져옴.
 
-        User entity = User.builder()
-                .id(securityUserResponseDto.getId())
-                .loginId(securityUserResponseDto.getLoginId())
-                .username(securityUserResponseDto.getUsername())
-                .solvableCount(securityUserResponseDto.getSolvableCount())
-                .build();
+        User entity = userJpaRepository.findById(securityUserResponseDto.getId()).orElseThrow(
+                ()->new RuntimeException("ERROR - 해당 userId의 사용자 조회 실패"));
 
         entity.updateLoginPw(passwordEncoder.encode(userUpdatePwRequestDto.getNewLoginPw()));
     }
