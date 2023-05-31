@@ -17,7 +17,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
 
-    @GetMapping("/categories")
+    @GetMapping("/categories")  // 헤더 토큰정보 불필요함 X
     public List<CategoryResponseDto> findAllCategories() {  // 모든 카테고리 목록들 조회
         List<CategoryResponseDto> categoryResponseDtos = categoryService.findAllCategories();
         return categoryResponseDtos;

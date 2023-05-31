@@ -15,7 +15,7 @@ public class AuthController {
     private final AuthService authService;
 
 
-    @GetMapping("/auth")
+    @GetMapping("/auth")  // 헤더 토큰정보 불필요함 X
     public UserIdResponseDto isLogin() {  // 로그인 상태 여부 확인
         Long userId = SecurityUtil.getCurrentMemberId();
         UserIdResponseDto userIdResponseDto = new UserIdResponseDto(userId);
@@ -23,19 +23,19 @@ public class AuthController {
         return userIdResponseDto;
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup")  // 헤더 토큰정보 불필요함 X
     public UserResponseDto joinUser(@RequestBody UserSignupRequestDto userSignupRequestDto) {  // 회원가입
         UserResponseDto userResponseDto = authService.signup(userSignupRequestDto);
         return userResponseDto;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login")  // 헤더 토큰정보 불필요함 X
     public TokenDto login(@RequestBody UserLoginRequestDto userLoginRequestDto) {  // 로그인
         TokenDto tokenDto = authService.login(userLoginRequestDto);
         return tokenDto;
     }
 
-    @PutMapping("/password")
+    @PutMapping("/password")  // 헤더 토큰정보 필요함 O
     public void updatePassword(@RequestBody UserUpdatePwRequestDto userUpdatePwRequestDto) {  // 비밀번호 수정
         authService.updatePw(userUpdatePwRequestDto);
     }
