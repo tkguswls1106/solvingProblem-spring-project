@@ -62,6 +62,7 @@ public class ProblemServiceLogic implements ProblemService {
     public List<ProblemResponseDto> findProblemsByCategoryId(Long categoryId) {  // 해당 categoryId 카테고리의 모든 문제들 리스트 정렬해서 반환 기능.
 
 //        getMyInfoBySecurity();  // 헤더의 토큰 유효검사와 사용자 일치 검사 실행.
+        // 카테고리들 목록과 더불어, 해당 카테고리에 속하는 문제들 목록까지는 로그인 없이 조회할수있도록 구성하기위해 주석처리 하였음.
 
         Category categoryEntity = categoryJpaRepository.findById(categoryId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 categoryId의 카테고리 조회 실패"));
