@@ -22,7 +22,7 @@ public class Comment extends DefaultCommentEntity implements Serializable {
     @Column(name = "comment_id")
     private Long id;
 
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "TEXT default null")
     private String content;
 
     @Column(name = "recommend_users", columnDefinition = "TEXT default null")

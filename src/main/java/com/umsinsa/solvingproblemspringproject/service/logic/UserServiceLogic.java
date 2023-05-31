@@ -51,7 +51,7 @@ public class UserServiceLogic implements UserService {
                 ()->new RuntimeException("ERROR - 해당 userId의 사용자 조회 실패"));
 
         Integer result_count = entity.getSolvableCount() + userUpdateSolvableRequestDto.getSolvableCount();
-        if (result_count < 0 ) {
+        if (result_count < 0) {
             throw new RuntimeException("ERROR - 이미 남은 잔여문제풀이가횟수가 0개 입니다.");
         }
         else {

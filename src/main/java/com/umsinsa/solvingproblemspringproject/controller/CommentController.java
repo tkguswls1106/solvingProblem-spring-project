@@ -32,8 +32,8 @@ public class CommentController {
     }
 
     @PutMapping("/recommend-comment/{commentId}")
-    public void updateRecommend(@PathVariable Long commentId, @RequestBody CommentUpdateUserIdRequestDto commentUpdateUserIdRequestDto) {  // 댓글 추천
-        commentService.updateRecommend(commentId, commentUpdateUserIdRequestDto);
+    public void updateRecommend(@PathVariable Long commentId) {  // 댓글 추천
+        commentService.updateRecommend(commentId);
     }
 
     @DeleteMapping("/comments/{commentId}")

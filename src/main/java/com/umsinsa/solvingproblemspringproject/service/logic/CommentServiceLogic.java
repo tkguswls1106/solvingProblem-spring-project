@@ -90,7 +90,7 @@ public class CommentServiceLogic implements CommentService {
 
     @Transactional
     @Override
-    public void updateRecommend(Long commentId, CommentUpdateUserIdRequestDto commentUpdateUserIdRequestDto) {  // 해당 commentId의 댓글 추천 기능.
+    public void updateRecommend(Long commentId) {  // 해당 commentId의 댓글 추천 기능.
 
         Comment entity = commentJpaRepository.findById(commentId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 commentId의 댓글 조회 실패"));
@@ -110,10 +110,10 @@ public class CommentServiceLogic implements CommentService {
         for (String userId : afterParsing) {
             userIds.add(Long.parseLong(userId));
         }
-        boolean isContain = userIds.contains(commentUpdateUserIdRequestDto.getUserId());
+        boolean isContain = userIds.contains(securityUserResponseDto.getId());
 
         if(!isContain) {  // 추천을 아직 누른사람이 아니라면
-            String parsingStr = Long.toString(commentUpdateUserIdRequestDto.getUserId()) + "p";
+            String parsingStr = Long.toString(securityUserResponseDto.getId()) + "p";
             entity.updateRecommend(entity.getRecommendCount()+1, entity.getRecommendUsers()+parsingStr);
         }
         else {

@@ -38,13 +38,13 @@ public class ProblemController {
     }
 
     @PutMapping("/recommend-problem/{problemId}")
-    public void updateRecommend(@PathVariable Long problemId, @RequestBody ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 문제 추천
-        problemService.updateRecommend(problemId, problemUpdateUserIdRequestDto);
+    public void updateRecommend(@PathVariable Long problemId) {  // 문제 추천
+        problemService.updateRecommend(problemId);
     }
 
     @PutMapping("/solve-problem/{problemId}")
-    public void updateSolve(@PathVariable Long problemId, @RequestBody ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 문제 정답자 업데이트
-        problemService.updateSolve(problemId, problemUpdateUserIdRequestDto);
+    public void updateSolve(@PathVariable Long problemId) {  // 문제 정답자 업데이트
+        problemService.updateSolve(problemId);
     }
 
     @DeleteMapping("/problems/{problemId}")

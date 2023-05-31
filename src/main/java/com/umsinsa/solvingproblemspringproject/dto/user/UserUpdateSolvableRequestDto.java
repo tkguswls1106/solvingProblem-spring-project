@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserUpdateSolvableRequestDto {
 
-    Integer solvableCount;
+    Integer solvableCount;  // +1 또는 -1로 받아야함.
 
     @Builder
     public UserUpdateSolvableRequestDto(Integer solvableCount) {

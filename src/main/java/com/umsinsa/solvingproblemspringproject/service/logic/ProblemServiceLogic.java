@@ -103,7 +103,7 @@ public class ProblemServiceLogic implements ProblemService {
 
     @Transactional
     @Override
-    public void updateRecommend(Long problemId, ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 해당 problemId의 문제 추천 기능.
+    public void updateRecommend(Long problemId) {  // 해당 problemId의 문제 추천 기능.
 
         Problem entity = problemJpaRepository.findById(problemId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 problemId의 문제 조회 실패"));
@@ -123,10 +123,10 @@ public class ProblemServiceLogic implements ProblemService {
         for (String userId : afterParsing) {
             userIds.add(Long.parseLong(userId));
         }
-        boolean isContain = userIds.contains(problemUpdateUserIdRequestDto.getUserId());
+        boolean isContain = userIds.contains(securityUserResponseDto.getId());
 
         if(!isContain) {  // 추천을 아직 누른사람이 아니라면
-            String parsingStr = Long.toString(problemUpdateUserIdRequestDto.getUserId()) + "p";
+            String parsingStr = Long.toString(securityUserResponseDto.getId()) + "p";
             entity.updateRecommend(entity.getRecommendCount()+1, entity.getRecommendUsers()+parsingStr);
         }
         else {
@@ -136,7 +136,7 @@ public class ProblemServiceLogic implements ProblemService {
 
     @Transactional
     @Override
-    public void updateSolve(Long problemId, ProblemUpdateUserIdRequestDto problemUpdateUserIdRequestDto) {  // 해당 problemId의 문제의 사용자 정답처리 기능.
+    public void updateSolve(Long problemId) {  // 해당 problemId의 문제의 사용자 정답처리 기능.
 
         Problem entity = problemJpaRepository.findById(problemId).orElseThrow(
                 ()->new RuntimeException("ERROR - 해당 problemId의 문제 조회 실패"));
@@ -156,10 +156,10 @@ public class ProblemServiceLogic implements ProblemService {
         for (String userId : afterParsing) {
             userIds.add(Long.parseLong(userId));
         }
-        boolean isContain = userIds.contains(problemUpdateUserIdRequestDto.getUserId());
+        boolean isContain = userIds.contains(securityUserResponseDto.getId());
 
         if(!isContain) {  // 정답을 아직 맞춰본 사용자가 아니라면
-            String parsingStr = Long.toString(problemUpdateUserIdRequestDto.getUserId()) + "p";
+            String parsingStr = Long.toString(securityUserResponseDto.getId()) + "p";
             entity.updateSolve(entity.getSolveUsers()+parsingStr);
         }
         else {
