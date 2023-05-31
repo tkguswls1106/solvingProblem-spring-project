@@ -47,7 +47,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/auth", "/signup").permitAll()
-                .antMatchers(HttpMethod.POST, "/categories/{categoryId}/problems").denyAll()
+                .antMatchers(HttpMethod.POST, "/categories/{categoryId}/problems").hasAuthority("ROLE_USER")
                 .antMatchers("/categories/**").permitAll()
                 .anyRequest().authenticated()
 
