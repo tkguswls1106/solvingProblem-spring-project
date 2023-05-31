@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")  // 헤더 토큰정보 필요함 O
-    public void updateSolvable(@PathVariable Long userId, UserUpdateSolvableRequestDto userUpdateSolvableRequestDto) {  // 잔여문제풀이가능횟수 수정
+    public void updateSolvable(@PathVariable Long userId, @RequestBody UserUpdateSolvableRequestDto userUpdateSolvableRequestDto) {  // 잔여문제풀이가능횟수 수정
         // 근데 이게 error이나 exception을 반환해서 프론트에 전달해야하는데, void 형식으로 반환해도 되는지는 모르겠음. 미확인 상태임.
 
         userService.updateSolvable(userId, userUpdateSolvableRequestDto);

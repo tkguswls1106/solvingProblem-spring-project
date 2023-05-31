@@ -62,13 +62,13 @@ public class User extends DefaultUserEntity implements Serializable {
 //        // 이 빌더는 문제풀기가능잔여횟수 수정때만 사용할 용도
 //        this.solvableCount = solvableCount;
 //    }
-    public User userUpdateSolvableCountBuilder(Integer solvableCount) {
-        // 이 유사 빌더는 문제풀기가능잔여횟수 수정때만 사용할 용도
-        User userEntity = new User();
-        userEntity.solvableCount = solvableCount;
-
-        return userEntity;
-    }
+//    public User userUpdateSolvableCountBuilder(Integer solvableCount) {
+//        // 이 유사 빌더는 문제풀기가능잔여횟수 수정때만 사용할 용도
+//        User userEntity = new User();
+//        userEntity.solvableCount = solvableCount;
+//
+//        return userEntity;
+//    }
 
 
     // 수정(업데이트) 기능
